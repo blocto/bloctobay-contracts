@@ -1,4 +1,4 @@
-import FungibleToken from 0xf8d6e0586b0a20c7
+import FungibleToken from "../FungibleToken.cdc"
 
 pub contract FlowToken: FungibleToken {
 
