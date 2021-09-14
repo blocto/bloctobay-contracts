@@ -1,0 +1,100 @@
+{
+  "emulators": {
+    "default": {
+      "port": 3569,
+      "serviceAccount": "emulator-account"
+    }
+  },
+  "contracts": {
+    "FungibleToken": {
+      "source": "./contracts/FungibleToken.cdc",
+      "aliases": {
+        "emulator": "0xee82856bf20e2aa6",
+        "testnet": "0x9a0766d93b6608b7",
+        "mainnet": "0xf233dcee88fe0abe"
+      }
+    },
+    "NonFungibleToken": {
+      "source": "./contracts/NonFungibleToken.cdc",
+      "aliases": {
+        "testnet": "0x631e88ae7f1d7c20",
+        "mainnet": "0x1d7e57aa55817448"
+      }
+    },
+    "NFTStorefront": {
+      "source": "./contracts/NFTStorefront.cdc",
+      "aliases": {
+        "testnet": "0x94b06cfca1d8a476",
+        "mainnet": "0x4eb8a10cb9f87357"
+      }
+    },
+    "Marketplace": "./contracts/Marketplace.cdc",
+    "FlowToken": {
+      "source": "./contracts/FTs/FlowToken.cdc",
+      "aliases": {
+        "emulator": "0x0ae53cb6e3f42a79",
+        "testnet": "0x7e60df042a9c0868",
+        "mainnet": "0x1654653399040a61"
+      }
+    },
+    "FUSD": {
+      "source": "./contracts/FTs/FUSD.cdc",
+      "aliases": {
+        "testnet": "0xe223d8a629e49c68",
+        "mainnet": "0x3c5959b568896393"
+      }
+    },
+    "CNN_NFT": "./contracts/NFTs/CNN_NFT.cdc",
+    "DarkCountry": "./contracts/NFTs/DarkCountry.cdc",
+    "Evolution": "./contracts/NFTs/Evolution.cdc",
+    "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc",
+    "KittyItems": "./contracts/NFTs/KittyItems.cdc"
+  },
+  "networks": {
+    "emulator": "127.0.0.1:3569",
+    "mainnet": "access.mainnet.nodes.onflow.org:9000",
+    "testnet": "access.devnet.nodes.onflow.org:9000"
+  },
+  "accounts": {
+    "emulator-account": {
+      "address": "f8d6e0586b0a20c7",
+      "key": "7aac2988c5c3df3325d8cd679563cc974271f9505245da53e887fa3cc36c064f"
+    },
+    "user-account-1": {
+			"address": "0x38953b34c8bf20fb",
+			"keys": [
+				{
+					"type": "hex",
+					"index": 0,
+					"signatureAlgorithm": "ECDSA_secp256k1",
+					"hashAlgorithm": "SHA3_256",
+					"context": {
+						"privateKey": "27e37d2919b436b6ef05070ba861809f45bc25686013b5f3ea9b2ad1a5a62605"
+					}
+				}
+			],
+			"chain": "flow-testnet"
+		}
+  },
+  "deployments": {
+    "emulator": {
+      "emulator-account": [
+        "NonFungibleToken",
+        "NFTStorefront",
+        "Marketplace",
+        "FUSD",
+        "CNN_NFT",
+        "DarkCountry",
+        "Evolution",
+        "ExampleNFT",
+        "KittyItems"
+      ]
+    },
+    "testnet": {
+			"user-account-1": [
+        "ExampleNFT",
+				"KittyItems"
+			]
+		}
+  }
+}
