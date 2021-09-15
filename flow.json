@@ -58,43 +58,55 @@
   "accounts": {
     "emulator-account": {
       "address": "f8d6e0586b0a20c7",
-      "key": "7aac2988c5c3df3325d8cd679563cc974271f9505245da53e887fa3cc36c064f"
+      "key": "7aac2988c5c3df3325d8cd679563cc974271f9505245da53e887fa3cc36c064f",
+      "chain": "flow-emulator"
     },
-    "user-account-1": {
-			"address": "0x38953b34c8bf20fb",
-			"keys": [
-				{
-					"type": "hex",
-					"index": 0,
-					"signatureAlgorithm": "ECDSA_secp256k1",
-					"hashAlgorithm": "SHA3_256",
-					"context": {
-						"privateKey": "27e37d2919b436b6ef05070ba861809f45bc25686013b5f3ea9b2ad1a5a62605"
-					}
-				}
-			],
-			"chain": "flow-testnet"
-		}
+    "emulator-marketplace-admin": {
+      "address": "01cf0e2f2f715450",
+      "keys": "7ba08d1950fe4f2a691e651754b0681259197004aefb08c8dd4465e7e0f6b033",
+      "chain": "flow-emulator"
+    },
+    "emulator-blocto-recipient": {
+      "address": "179b6b1cb6755e31",
+      "keys": "3da68a6ddb1a28fe92686929ae18daaeafc341918dd1245c96d98e217d67a9db",
+      "chain": "flow-emulator"
+    },
+    "emulator-example-nft-recipient": {
+      "address": "f3fcd2c1a78f5eee",
+      "keys": "505eed41042f71c8d7526a09584184a3dd2aa24935f91629b189bcdb084ba676",
+      "chain": "flow-emulator"
+    },
+    "emulator-nft-user1": {
+      "address": "e03daebed8ca0615",
+      "keys": "83cf56a2e17e448fe631713b44f65935f1d985a397c6414fd856ffabb9db9e06",
+      "chain": "flow-emulator"
+    },
+    "emulator-nft-user2": {
+      "address": "045a1763c93006ca",
+      "keys": "b2cd6b548ca46f50e84d895bb93ad9ec0d478ec95a4121921216c3eb5f67fbf0",
+      "chain": "flow-emulator"
+    },
+    "emulator-nft-user3": {
+      "address": "120e725050340cab",
+      "keys": "bc2eeda01dbd4fb996edd029e7264e8f936b60fefbbcb6393883dd17fff1a4fe",
+      "chain": "flow-emulator"
+    }
   },
   "deployments": {
     "emulator": {
       "emulator-account": [
         "NonFungibleToken",
         "NFTStorefront",
-        "Marketplace",
         "FUSD",
         "CNN_NFT",
         "DarkCountry",
         "Evolution",
         "ExampleNFT",
         "KittyItems"
+      ],
+      "emulator-marketplace-admin": [
+        "Marketplace"
       ]
-    },
-    "testnet": {
-			"user-account-1": [
-        "ExampleNFT",
-				"KittyItems"
-			]
-		}
+    }
   }
 }
