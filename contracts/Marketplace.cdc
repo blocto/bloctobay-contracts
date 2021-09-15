@@ -40,25 +40,25 @@ pub contract Marketplace {
     pub let MarketplaceAdminStoragePath: StoragePath
 
     // listingID order by time, listingID asc
-    pub let listingIDsByTime: [UInt64]
+    access(contract) let listingIDsByTime: [UInt64]
 
     // listingID order by price, listingID asc
-    pub let listingIDsByPrice: [UInt64]
+    access(contract) let listingIDsByPrice: [UInt64]
 
     // collection identifier => listingIDs order by time, listingID asc
-    pub let collectionListingIDsByTime: {String: [UInt64]}
+    access(contract) let collectionListingIDsByTime: {String: [UInt64]}
 
     // collection identifier => listingIDs order by price, listingID asc
-    pub let collectionListingIDsByPrice: {String: [UInt64]}
+    access(contract) let collectionListingIDsByPrice: {String: [UInt64]}
 
     // listingID => item
-    pub let listingIDItems: {UInt64: Item}
+    access(contract) let listingIDItems: {UInt64: Item}
 
     // collection identifier => (NFT id => listingID)
-    pub let collectionNFTListingIDs: {String: {UInt64: UInt64}}
+    access(contract) let collectionNFTListingIDs: {String: {UInt64: UInt64}}
 
     // collection identifier => SaleCutRequirements
-    pub let saleCutRequirements: {String: [SaleCutRequirement]}
+    access(contract) let saleCutRequirements: {String: [SaleCutRequirement]}
 
     // Administrator
     //
@@ -75,6 +75,35 @@ pub contract Marketplace {
         }
     }
 
+    pub fun getListingIDsByTime(): [UInt64] {
+        return self.listingIDsByTime
+    }
+
+    pub fun getListingIDsByPrice(): [UInt64] {
+        return self.listingIDsByPrice
+    }
+
+    pub fun getCollectionListingIDsByTime(nftType: Type): [UInt64] {
+        return self.collectionListingIDsByTime[nftType.identifier] ?? []
+    }
+
+    pub fun getCollectionListingIDsByPrice(nftType: Type): [UInt64] {
+        return self.collectionListingIDsByPrice[nftType.identifier] ?? []
+    }
+
+    pub fun getListingIDItem(listingID: UInt64): Item? {
+        return self.listingIDItems[listingID]
+    }
+
+    pub fun getListingID(nftType: Type, nftID: UInt64): UInt64? {
+        let nftListingIDs = self.collectionNFTListingIDs[nftType.identifier] ?? {}
+        return nftListingIDs[nftID]
+    }
+
+    pub fun getSaleCutRequirements(nftType: Type): [SaleCutRequirement] {
+        return self.saleCutRequirements[nftType.identifier] ?? []
+    }
+
     pub fun addListing(id: UInt64, storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>) {
         pre {
             self.listingIDItems[id] == nil: "could not add duplicate listing"
@@ -82,10 +111,7 @@ pub contract Marketplace {
 
         let item = Item(storefrontPublicCapability: storefrontPublicCapability, listingID: id)
 
-        // check the item hasn't been purchased
-        if item.listingDetails.purchased == true {
-            return
-        }
+        assert(item.listingDetails.purchased == false, message: "the item has been purchased")
 
         // check duplicate NFT
         let nftListingIDs = self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] ?? {}
@@ -98,7 +124,8 @@ pub contract Marketplace {
 
             var match = false
             for saleCut in item.listingDetails.saleCuts {
-                if saleCut.receiver.address == requirement.receiver.address {
+                if saleCut.receiver.address == requirement.receiver.address &&
+                   saleCut.receiver.borrow()! == requirement.receiver.borrow()! {
                     if saleCut.amount == salePrice {
                         match = true
                     }
@@ -169,6 +196,7 @@ pub contract Marketplace {
             items.remove(at: index)
             self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] = items
         }
+
         // remove from collectionListingIDsByTime
         items = self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] ?? []
         if let index = self.getIndexToRemovelistingIDsByTime(item: item, items: items) {
@@ -176,6 +204,7 @@ pub contract Marketplace {
             self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] = items
         }
 
+        // update index data
         self.listingIDItems.remove(key: item.listingID)
         let nftListingIDs = self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] ?? {}
         nftListingIDs.remove(key: item.listingDetails.nftID)
