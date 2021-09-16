@@ -35,6 +35,20 @@ flow scripts execute ./scripts/NFTs/ExampleNFT/getListings.cdc \
     --arg Int:20
 ```
 
+### Get All NFTs and Listings By Address
+
+```
+flow scripts execute scripts/getUserNFTsAndListings.cdc \
+    --arg Address:0xe03daebed8ca0615
+```
+
+### Get Single Listing By NFT ID
+
+```
+flow scripts execute scripts/NFTs/*/getListing.cdc \
+    --arg UInt64:0
+```
+
 ## Run Transactions
 
 ### Setup SaleCut Recipient
