@@ -133,7 +133,7 @@ pub contract Marketplace {
                 }
             }
 
-            assert(match == true, message: "saleCut must be follow requirements")
+            assert(match == true, message: "saleCut must follow SaleCutRequirements")
         }
 
         // all by time
