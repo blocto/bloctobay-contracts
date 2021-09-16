@@ -28,7 +28,12 @@
         "mainnet": "0x4eb8a10cb9f87357"
       }
     },
-    "Marketplace": "./contracts/Marketplace.cdc",
+    "Marketplace": {
+      "source": "./contracts/Marketplace.cdc",
+      "aliases": {
+        "testnet": "0xe395c668f56286ba"
+      }
+    },
     "FlowToken": {
       "source": "./contracts/FTs/FlowToken.cdc",
       "aliases": {
@@ -44,11 +49,69 @@
         "mainnet": "0x3c5959b568896393"
       }
     },
-    "CNN_NFT": "./contracts/NFTs/CNN_NFT.cdc",
-    "DarkCountry": "./contracts/NFTs/DarkCountry.cdc",
-    "Evolution": "./contracts/NFTs/Evolution.cdc",
-    "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc",
-    "KittyItems": "./contracts/NFTs/KittyItems.cdc"
+    "ContractVersion": {
+      "source": "./contracts/NFTs/MotoGP/ContractVersion.cdc",
+      "aliases": {
+        "mainnet": "0xa49cc0ee46c54bfb"
+      }
+    },
+    "MotoGPAdmin": {
+      "source": "./contracts/NFTs/MotoGP/MotoGPAdmin.cdc",
+      "aliases": {
+        "mainnet": "0xa49cc0ee46c54bfb"
+      }
+    },
+    "MotoGPCard": {
+      "source": "./contracts/NFTs/MotoGP/MotoGPCard.cdc",
+      "aliases": {
+        "mainnet": "0xa49cc0ee46c54bfb"
+      }
+    },
+    "MotoGPCardMetadata": {
+      "source": "./contracts/NFTs/MotoGP/MotoGPCardMetadata.cdc",
+      "aliases": {
+        "mainnet": "0xa49cc0ee46c54bfb"
+      }
+    },
+    "MotoGPCounter": {
+      "source": "./contracts/NFTs/MotoGP/MotoGPCounter.cdc",
+      "aliases": {
+        "mainnet": "0xa49cc0ee46c54bfb"
+      }
+    },
+    "MotoGPPack": {
+      "source": "./contracts/NFTs/MotoGP/MotoGPPack.cdc",
+      "aliases": {
+        "mainnet": "0xa49cc0ee46c54bfb"
+      }
+    },
+    "Art": {
+      "source": "./contracts/NFTs/Versus/Art.cdc",
+      "aliases": {
+        "mainnet": "0xd796ff17107bbff6",
+        "testnet": "0x99ca04281098b33d"
+      }
+    },
+    "CNN_NFT": {
+      "source": "./contracts/NFTs/CNN_NFT.cdc",
+      "aliases": {
+        "mainnet": "0x329feb3ab062d289"
+      }
+    },
+    "DarkCountry": {
+      "source": "./contracts/NFTs/DarkCountry.cdc",
+      "aliases": {
+        "testnet": "0xe2759c7e9a894ff1",
+        "mainnet": "0xc8c340cebd11f690"
+      }
+    },
+    "Evolution": {
+      "source": "./contracts/NFTs/Evolution.cdc",
+      "aliases": {
+        "mainnet": "0xf4264ac8f3256818"
+      }
+    },
+    "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
     "emulator": "127.0.0.1:3569",
@@ -90,6 +153,11 @@
       "address": "120e725050340cab",
       "keys": "bc2eeda01dbd4fb996edd029e7264e8f936b60fefbbcb6393883dd17fff1a4fe",
       "chain": "flow-emulator"
+    },
+    "testnet-marketplace-admin": {
+      "address": "e395c668f56286ba",
+      "keys": "83db9f09d19d066eb9d71b3aa7f79d99dfbd0eb10278dc895c30d19e2fc8ffb5",
+      "chain": "flow-testnet"
     }
   },
   "deployments": {
@@ -101,10 +169,14 @@
         "CNN_NFT",
         "DarkCountry",
         "Evolution",
-        "ExampleNFT",
-        "KittyItems"
+        "ExampleNFT"
       ],
       "emulator-marketplace-admin": [
+        "Marketplace"
+      ]
+    },
+    "testnet": {
+      "testnet-marketplace-admin": [
         "Marketplace"
       ]
     }
