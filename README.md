@@ -20,7 +20,7 @@ flow scripts execute ./scripts/Marketplace/getListings.cdc \
     --arg Int:20
 ```
 
-### Get All listings of ExampleNFT on Marketplace
+### Get All Listings of ExampleNFT on Marketplace
 
 ```
 // sortBy: 0 = sort by time; 1 = sort by price

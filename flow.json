@@ -92,6 +92,13 @@
         "testnet": "0x99ca04281098b33d"
       }
     },
+    "Content": {
+      "source": "./contracts/NFTs/Versus/Content.cdc",
+      "aliases": {
+        "mainnet": "0xd796ff17107bbff6",
+        "testnet": "0x99ca04281098b33d"
+      }
+    },
     "CNN_NFT": {
       "source": "./contracts/NFTs/CNN_NFT.cdc",
       "aliases": {
@@ -166,6 +173,14 @@
         "NonFungibleToken",
         "NFTStorefront",
         "FUSD",
+        "ContractVersion",
+        "MotoGPAdmin",
+        "MotoGPCard",
+        "MotoGPCardMetadata",
+        "MotoGPCounter",
+        "MotoGPPack",
+        "Art",
+        "Content",
         "CNN_NFT",
         "DarkCountry",
         "Evolution",

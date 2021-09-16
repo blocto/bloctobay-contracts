@@ -1,6 +1,6 @@
 import NonFungibleToken from "../../NonFungibleToken.cdc"
 import FungibleToken from "../../FungibleToken.cdc"
-import Content from 0xd796ff17107bbff6
+import Content from "./Content.cdc"
 
 //A NFT contract to store art
 pub contract Art: NonFungibleToken {
