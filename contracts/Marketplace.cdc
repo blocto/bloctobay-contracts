@@ -65,6 +65,11 @@ pub contract Marketplace {
     pub resource Administrator {
 
         pub fun updateSaleCutRequirements(_ requirements: [SaleCutRequirement], nftType: Type) {
+            var totalRatio: UFix64 = 0.0
+            for requirement in requirements {
+                totalRatio = totalRatio + requirement.ratio
+            }
+            assert(totalRatio <= 1.0, message: "total ratio must be less than or equal to 1.0")
             Marketplace.saleCutRequirements[nftType.identifier] = requirements
         }
 
@@ -120,13 +125,13 @@ pub contract Marketplace {
         // check sale cut
         let requirements = self.saleCutRequirements[item.listingDetails.nftType.identifier] ?? []
         for requirement in requirements {
-            let salePrice = item.listingDetails.salePrice * requirement.ratio
+            let saleCutAmount = item.listingDetails.salePrice * requirement.ratio
 
             var match = false
             for saleCut in item.listingDetails.saleCuts {
                 if saleCut.receiver.address == requirement.receiver.address &&
                    saleCut.receiver.borrow()! == requirement.receiver.borrow()! {
-                    if saleCut.amount == salePrice {
+                    if saleCut.amount >= saleCutAmount {
                         match = true
                     }
                     break
@@ -165,7 +170,7 @@ pub contract Marketplace {
     // Anyone can remove it if the listing item has been removed or purchased.
     pub fun removeListing(id: UInt64) {
         if let item = self.listingIDItems[id] {
-            // Skip if the listing item haven't been purchased
+            // Skip if the listing item hasn't been purchased
             if let storefrontPublic = item.storefrontPublicCapability.borrow() {
                 if let listingItem = storefrontPublic.borrowListing(listingResourceID: id) {
                     let listingDetails = listingItem.getDetails()
