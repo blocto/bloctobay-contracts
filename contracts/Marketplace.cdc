@@ -31,8 +31,10 @@ pub contract Marketplace {
         pub let ratio: UFix64
 
         init(receiver: Capability<&{FungibleToken.Receiver}>, ratio: UFix64) {
+            pre {
+                ratio <= 1.0: "ratio must be less than or equal to 1.0"
+            }
             self.receiver = receiver
-            assert(ratio <= 1.0, message: "ratio must be less than or equal to 1.0")
             self.ratio = ratio
         }
     }
@@ -317,7 +319,7 @@ pub contract Marketplace {
     }
 
     init () {
-        self.MarketplaceAdminStoragePath = /storage/marketplaceAdmin
+        self.MarketplaceAdminStoragePath = /storage/BloctoBayMarketplaceAdmin
 
         self.listingIDsByTime = []
         self.listingIDsByPrice = []
