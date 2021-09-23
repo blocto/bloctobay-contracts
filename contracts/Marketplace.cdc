@@ -118,7 +118,7 @@ pub contract Marketplace {
         let indexToInsertListingIDByTime = self.getIndexToAddListingIDByTime(item: item, items: self.listingIDsByTime)
 
         // all by price
-        let indexToInsertListingIDByPrice = self.getIndexToAddListingIDsByPrice(item: item, items: self.listingIDsByPrice)
+        let indexToInsertListingIDByPrice = self.getIndexToAddListingIDByPrice(item: item, items: self.listingIDsByPrice)
             ?? panic("could not add duplicate listing")
 
         // collection by time
@@ -127,7 +127,7 @@ pub contract Marketplace {
 
         // collection by price
         items = self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] ?? []
-        let indexToInsertCollectionListingIDByPrice = self.getIndexToAddListingIDsByPrice(item: item, items: items)
+        let indexToInsertCollectionListingIDByPrice = self.getIndexToAddListingIDByPrice(item: item, items: items)
             ?? panic("could not add duplicate listing")
 
         self.addItem(
@@ -366,7 +366,7 @@ pub contract Marketplace {
     }
 
     // Run binary search to find out the index to insert
-    access(contract) fun getIndexToAddListingIDsByPrice(item: Item, items: [UInt64]): Int? {
+    access(contract) fun getIndexToAddListingIDByPrice(item: Item, items: [UInt64]): Int? {
         var startIndex = 0
         var endIndex = items.length
 
