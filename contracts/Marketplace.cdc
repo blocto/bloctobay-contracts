@@ -121,8 +121,10 @@ pub contract Marketplace {
         assert(item.listingDetails.purchased == false, message: "the item has been purchased")
 
         // check duplicate NFT
-        let nftListingIDs = self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] ?? {}
-        assert(nftListingIDs[item.listingDetails.nftID] == nil, message: "could not add duplicate NFT")
+        let nftListingIDs = self.collectionNFTListingIDs[item.listingDetails.nftType.identifier]
+        if let nftListingIDs = nftListingIDs {
+            assert(nftListingIDs[item.listingDetails.nftID] == nil, message: "could not add duplicate NFT")
+        }
 
         // check sale cut
         let requirements = self.saleCutRequirements[item.listingDetails.nftType.identifier] ?? []
@@ -152,21 +154,31 @@ pub contract Marketplace {
         self.listingIDsByPrice.insert(at: index, id)
 
         // collection by time
-        var items = self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] ?? []
-        index = self.getIndexToAddlistingIDsByTime(item: item, items: items)
-        items.insert(at: index, id)
-        self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] = items
+        if let items = self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] {
+            let index = self.getIndexToAddlistingIDsByTime(item: item, items: items)
+            items.insert(at: index, id)
+            self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] = items
+        } else {
+            self.collectionListingIDsByTime[item.listingDetails.nftType.identifier] = [id]
+        }
 
         // collection by price
-        items = self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] ?? []
-        index = self.getIndexToAddlistingIDsByPrice(item: item, items: items)
-        items.insert(at: index, id)
-        self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] = items
+        if let items = self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] {
+            let index = self.getIndexToAddlistingIDsByPrice(item: item, items: items)
+            items.insert(at: index, id)
+            self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] = items
+        } else {
+            self.collectionListingIDsByPrice[item.listingDetails.nftType.identifier] = [id]
+        }
 
         // update index data
         self.listingIDItems[id] = item
-        nftListingIDs[item.listingDetails.nftID] = id
-        self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] = nftListingIDs
+        if let nftListingIDs = nftListingIDs {
+            nftListingIDs[item.listingDetails.nftID] = id
+            self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] = nftListingIDs
+        } else {
+            self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] = {item.listingDetails.nftID: id}
+        }
     }
 
     // Anyone can remove it if the listing item has been removed or purchased.
