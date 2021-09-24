@@ -253,7 +253,8 @@ pub contract Marketplace {
         }
 
         // check sale cut
-        let requirements = self.saleCutRequirements[item.listingDetails.nftType.identifier] ?? []
+        let requirements = self.saleCutRequirements[item.listingDetails.nftType.identifier]
+            ?? panic("no SaleCutRequirements")
         for requirement in requirements {
             let saleCutAmount = item.listingDetails.salePrice * requirement.ratio
 
