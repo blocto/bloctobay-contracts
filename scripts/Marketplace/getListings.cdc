@@ -1,44 +1,22 @@
 import NFTStorefront from "../../contracts/NFTStorefront.cdc"
 import Marketplace from "../../contracts/Marketplace.cdc"
 
-// sortByTime: sortBy == 0
-// sortByPrice: sortBy == 1
-
-pub fun main(sortBy: UInt64, asc: Bool, offset: Int, limit: Int): DipslayResult {
-    var listingIds: [UInt64] = []
-    if sortBy == 0 {
-        listingIds = Marketplace.getListingIDsByTime()
-    } else if sortBy == 1 {
-        listingIds = Marketplace.getListingIDsByPrice()
-    }
+pub fun main(offset: Int, limit: Int): DipslayResult {
+    var listingIds: [UInt64] = Marketplace.getListingIDs()
 
     var displayItems: [ListingDisplayItem] = []
     var limit = limit
     var skipCount = 0
-    if asc {
-        var index = offset
-        while index < listingIds.length && limit >= 0 {
-            let listingID = listingIds[index]
-            if let item = getListingDisplayItem(listingID: listingID) {
-                displayItems.append(item)
-                limit = limit - 1
-            } else {
-                skipCount = skipCount + 1
-            }
-            index = index + 1
+    var index = offset
+    while index < listingIds.length && limit >= 0 {
+        let listingID = listingIds[index]
+        if let item = getListingDisplayItem(listingID: listingID) {
+            displayItems.append(item)
+            limit = limit - 1
+        } else {
+            skipCount = skipCount + 1
         }
-    } else {
-        var index = listingIds.length - 1 - offset
-        while index >= 0 && limit >= 0 {
-            let listingID = listingIds[index]
-            if let item = getListingDisplayItem(listingID: listingID) {
-                displayItems.append(item)
-                limit = limit - 1
-            } else {
-                skipCount = skipCount + 1
-            }
-            index = index - 1
-        }
+        index = index + 1
     }
 
     return DipslayResult(displayItems: displayItems, skipCount: skipCount)

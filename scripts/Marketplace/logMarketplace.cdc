@@ -4,28 +4,7 @@ import ExampleNFT from "../../contracts/NFTs/ExampleNFT.cdc"
 pub fun main() {
     log({"saleCutRequirements": Marketplace.getSaleCutRequirements(nftType: Type<@ExampleNFT.NFT>())})
 
-    log("===listingIDsByTime===")
-    for listingID in Marketplace.getListingIDsByTime() {
-        let item = Marketplace.getListingIDItem(listingID: listingID)!
-        logItem(item, listingID: listingID)
-    }
-
-    log("===listingIDsByPrice===")
-    for listingID in Marketplace.getListingIDsByPrice() {
-        let item = Marketplace.getListingIDItem(listingID: listingID)!
-        logItem(item, listingID: listingID)
-    }
-
-    log("===collectionListingIDsByTime===")
-    var listingIDs = Marketplace.getCollectionListingIDsByTime(nftType: Type<@ExampleNFT.NFT>())
-    for listingID in listingIDs {
-        let item = Marketplace.getListingIDItem(listingID: listingID)!
-        logItem(item, listingID: listingID)
-    }
-
-    log("===collectionListingIDsByPrice===")
-    listingIDs = Marketplace.getCollectionListingIDsByPrice(nftType: Type<@ExampleNFT.NFT>())
-    for listingID in listingIDs {
+    for listingID in Marketplace.getListingIDs() {
         let item = Marketplace.getListingIDItem(listingID: listingID)!
         logItem(item, listingID: listingID)
     }

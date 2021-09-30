@@ -8,29 +8,10 @@ https://docs.onflow.org/flow-cli/install
 ### Get All Listings on Marketplace
 
 ```
-// sortBy: 0 = sort by time; 1 = sort by price
-// asc: true or false
 // offset
 // limit
 
 flow scripts execute ./scripts/Marketplace/getListings.cdc \
-    --arg UInt64:0 \
-    --arg Bool:true \
-    --arg Int:0 \
-    --arg Int:20
-```
-
-### Get All Listings of ExampleNFT on Marketplace
-
-```
-// sortBy: 0 = sort by time; 1 = sort by price
-// asc: true or false
-// offset
-// limit
-
-flow scripts execute ./scripts/NFTs/ExampleNFT/getListings.cdc \
-    --arg UInt64:0 \
-    --arg Bool:true \
     --arg Int:0 \
     --arg Int:20
 ```
