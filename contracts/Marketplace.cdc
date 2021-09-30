@@ -108,7 +108,7 @@ pub contract Marketplace {
     pub fun addListingWithIndex(
         id: UInt64,
         storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>,
-        indexToInsertListingID: Int,
+        indexToInsertListingID: Int
     ) {
         let item = Item(storefrontPublicCapability: storefrontPublicCapability, listingID: id)
 
@@ -141,10 +141,7 @@ pub contract Marketplace {
     }
 
     // Anyone can remove it if the listing item has been removed or purchased.
-    pub fun removeListingWithIndex(
-        id: UInt64,
-        indexToRemoveListingID: Int
-    ) {
+    pub fun removeListingWithIndex(id: UInt64, indexToRemoveListingID: Int) {
         pre {
             self.listingIDs[indexToRemoveListingID] == id: "invalid indexToRemoveListingID"
         }
@@ -170,7 +167,7 @@ pub contract Marketplace {
     access(contract) fun addItem(
         _ item: Item,
         storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>,
-        indexToInsertListingID: Int,
+        indexToInsertListingID: Int
     ) {
         pre {
             self.listingIDItems[item.listingID] == nil: "could not add duplicate listing"
@@ -229,10 +226,7 @@ pub contract Marketplace {
     }
 
     // Remove item and indexes. The indexes should be checked before calling this func.
-    access(contract) fun removeItemWithIndexes(
-        _ item: Item,
-        indexToRemoveListingID: Int?,
-    ) {
+    access(contract) fun removeItemWithIndexes(_ item: Item, indexToRemoveListingID: Int?) {
         // remove from listingIDs
         if let indexToRemoveListingID = indexToRemoveListingID {
             self.listingIDs.remove(at: indexToRemoveListingID)
