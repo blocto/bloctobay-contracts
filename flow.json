@@ -99,6 +99,18 @@
         "testnet": "0x99ca04281098b33d"
       }
     },
+    "Collectible": {
+      "source": "./contracts/NFTs/xtingles/Collectible.cdc",
+      "aliases": {
+        "mainnet": "0xd796ff17107bbff6"
+      }
+    },
+    "Edition": {
+      "source": "./contracts/NFTs/xtingles/Edition.cdc",
+      "aliases": {
+        "mainnet": "0xd796ff17107bbff6"
+      }
+    },
     "CNN_NFT": {
       "source": "./contracts/NFTs/CNN_NFT.cdc",
       "aliases": {
@@ -189,7 +201,9 @@
         "CNN_NFT",
         "DarkCountry",
         "Evolution",
-        "ExampleNFT"
+        "ExampleNFT",
+        "Collectible",
+        "Edition"
       ],
       "emulator-marketplace-admin": [
         "Marketplace"
