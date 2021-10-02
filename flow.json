@@ -102,13 +102,13 @@
     "Collectible": {
       "source": "./contracts/NFTs/xtingles/Collectible.cdc",
       "aliases": {
-        "mainnet": "0xd796ff17107bbff6"
+        "mainnet": "0xf5b0eb433389ac3f"
       }
     },
     "Edition": {
       "source": "./contracts/NFTs/xtingles/Edition.cdc",
       "aliases": {
-        "mainnet": "0xd796ff17107bbff6"
+        "mainnet": "0xf5b0eb433389ac3f"
       }
     },
     "CNN_NFT": {
