@@ -31,7 +31,8 @@
     "Marketplace": {
       "source": "./contracts/Marketplace.cdc",
       "aliases": {
-        "testnet": "0xe1aa310cfe7750c4"
+        "testnet": "0xe1aa310cfe7750c4",
+        "mainnet": "0xe39483c1fcb6b412"
       }
     },
     "FlowToken": {
@@ -182,6 +183,9 @@
       "address": "e1aa310cfe7750c4",
       "keys": "e09fb80d55d4be6042e27e7ffe930ff0f5e20a869b44729c8ddf06e83df9d50f",
       "chain": "flow-testnet"
+    },
+    "mainnet-admin": {
+      "fromFile": "./flow.mainnet.json"
     }
   },
   "deployments": {
