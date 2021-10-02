@@ -14,8 +14,9 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
     prepare(signer: AuthAccount) {
         // Create a collection to store the purchase if none present
         if signer.borrow<&Evolution.Collection>(from: /storage/f4264ac8f3256818_Evolution_Collection) == nil {
-            signer.save(<- Evolution.createEmptyCollection(), to: /storage/f4264ac8f3256818_Evolution_Collection)
-            signer.link<&{NonFungibleToken.CollectionPublic}>(/public/NFTCollection, target: /storage/f4264ac8f3256818_Evolution_Collection)
+            let collection <- Evolution.createEmptyCollection() as! @Evolution.Collection
+            signer.save(<-collection, to: /storage/f4264ac8f3256818_Evolution_Collection)
+            signer.link<&{Evolution.EvolutionCollectionPublic, NonFungibleToken.CollectionPublic}>(/public/f4264ac8f3256818_Evolution_Collection, target: /storage/f4264ac8f3256818_Evolution_Collection)
         }
 
         self.storefront = getAccount(storefrontAddress)

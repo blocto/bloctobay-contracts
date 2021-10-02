@@ -15,8 +15,8 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
         // Create a collection to store the purchase if none present
         if signer.borrow<&MotoGPCard.Collection>(from: /storage/motogpCardCollection) == nil {
             signer.save(<- MotoGPCard.createEmptyCollection(), to: /storage/motogpCardCollection)
-            signer.link<&{NonFungibleToken.CollectionPublic}>(/public/NFTCollection, target: /storage/motogpCardCollection)
-        }
+            signer.link<&MotoGPCard.Collection{MotoGPCard.ICardCollectionPublic, NonFungibleToken.CollectionPublic}>(/public/motogpCardCollection, target: /storage/motogpCardCollection)
+	    }
 
         self.storefront = getAccount(storefrontAddress)
             .getCapability<&NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}>(NFTStorefront.StorefrontPublicPath)

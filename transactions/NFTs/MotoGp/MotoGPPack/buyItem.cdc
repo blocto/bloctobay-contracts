@@ -15,7 +15,7 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
         // Create a collection to store the purchase if none present
         if signer.borrow<&MotoGPPack.Collection>(from: /storage/motogpPackCollection) == nil {
             signer.save(<- MotoGPPack.createEmptyCollection(), to: /storage/motogpPackCollection)
-            signer.link<&{NonFungibleToken.CollectionPublic}>(/public/NFTCollection, target: /storage/motogpPackCollection)
+            signer.link<&MotoGPPack.Collection{MotoGPPack.IPackCollectionPublic, MotoGPPack.IPackCollectionAdminAccessible, NonFungibleToken.CollectionPublic}>(/public/motogpPackCollection, target: /storage/motogpPackCollection)
         }
 
         self.storefront = getAccount(storefrontAddress)
