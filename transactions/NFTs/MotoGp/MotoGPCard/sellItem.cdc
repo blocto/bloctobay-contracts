@@ -2,23 +2,16 @@ import FungibleToken from "../../../../contracts/FungibleToken.cdc"
 import NonFungibleToken from "../../../../contracts/NonFungibleToken.cdc"
 import NFTStorefront from "../../../../contracts/NFTStorefront.cdc"
 import Marketplace from "../../../../contracts/Marketplace.cdc"
-import FUSD from "../../../../contracts/FTs/FUSD.cdc"
+import FlowToken from "../../../contracts/FTs/FlowToken.cdc"
 import MotoGPCard from "../../../../contracts/NFTs/MotoGP/MotoGPCard.cdc"
 
 transaction(saleItemID: UInt64, saleItemPrice: UFix64) {
-    let fusdReceiver: Capability<&FUSD.Vault{FungibleToken.Receiver}>
+    let flowTokenReceiver: Capability<&FlowToken.Vault{FungibleToken.Receiver}>
     let motoGPCardProvider: Capability<&MotoGPCard.Collection{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>
     let storefront: &NFTStorefront.Storefront
     let storefrontPublic: Capability<&NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}>
 
     prepare(signer: AuthAccount) {
-        // Create FUSD vault if it doesn't exist
-        if signer.borrow<&FUSD.Vault>(from: /storage/fusdVault) == nil {
-            signer.save(<-FUSD.createEmptyVault(), to: /storage/fusdVault)
-            signer.link<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver, target: /storage/fusdVault)
-            signer.link<&FUSD.Vault{FungibleToken.Balance}>(/public/fusdBalance, target: /storage/fusdVault)
-        }
-
         // Create Storefront if it doesn't exist
         if signer.borrow<&NFTStorefront.Storefront>(from: NFTStorefront.StorefrontStoragePath) == nil {
             let storefront <- NFTStorefront.createStorefront() as! @NFTStorefront.Storefront
@@ -34,8 +27,8 @@ transaction(saleItemID: UInt64, saleItemPrice: UFix64) {
             signer.link<&MotoGPCard.Collection{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(motoGPCardCollectionProviderPrivatePath, target: /storage/motogpCardCollection)
         }
 
-        self.fusdReceiver = signer.getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)!
-        assert(self.fusdReceiver.borrow() != nil, message: "Missing or mis-typed FUSD receiver")
+        self.flowTokenReceiver = signer.getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)!
+        assert(self.flowTokenReceiver.borrow() != nil, message: "Missing or mis-typed FlowToken receiver")
 
         self.motoGPCardProvider = signer.getCapability<&MotoGPCard.Collection{NonFungibleToken.Provider, NonFungibleToken.CollectionPublic}>(motoGPCardCollectionProviderPrivatePath)!
         assert(self.motoGPCardProvider.borrow() != nil, message: "Missing or mis-typed MotoGPCard.Collection provider")
@@ -70,7 +63,7 @@ transaction(saleItemID: UInt64, saleItemPrice: UFix64) {
             remainingPrice = remainingPrice - price
         }
         saleCuts.append(NFTStorefront.SaleCut(
-            receiver: self.fusdReceiver,
+            receiver: self.flowTokenReceiver,
             amount: remainingPrice
         ))
 
@@ -79,7 +72,7 @@ transaction(saleItemID: UInt64, saleItemPrice: UFix64) {
             nftProviderCapability: self.motoGPCardProvider,
             nftType: Type<@MotoGPCard.NFT>(),
             nftID: saleItemID,
-            salePaymentVaultType: Type<@FUSD.Vault>(),
+            salePaymentVaultType: Type<@FlowToken.Vault>(),
             saleCuts: saleCuts
         )
         Marketplace.addListing(id: id, storefrontPublicCapability: self.storefrontPublic)

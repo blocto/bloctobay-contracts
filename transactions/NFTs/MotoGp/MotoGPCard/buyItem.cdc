@@ -2,7 +2,7 @@ import FungibleToken from "../../../../contracts/FungibleToken.cdc"
 import NonFungibleToken from "../../../../contracts/NonFungibleToken.cdc"
 import NFTStorefront from "../../../../contracts/NFTStorefront.cdc"
 import Marketplace from "../../../../contracts/Marketplace.cdc"
-import FUSD from "../../../../contracts/FTs/FUSD.cdc"
+import FlowToken from "../../../contracts/FTs/FlowToken.cdc"
 import MotoGPCard from "../../../../contracts/NFTs/MotoGP/MotoGPCard.cdc"
 
 transaction(listingResourceID: UInt64, storefrontAddress: Address) {
@@ -27,9 +27,9 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
             ?? panic("No Offer with that ID in Storefront")
         let price = self.listing.getDetails().salePrice
 
-        let fusdVault = signer.borrow<&FUSD.Vault>(from: /storage/fusdVault)
-            ?? panic("Cannot borrow FUSD vault from signer storage")
-        self.paymentVault <- fusdVault.withdraw(amount: price)
+        let flowTokenVault = signer.borrow<&FlowToken.Vault>(from: /storage/flowTokenVault)
+            ?? panic("Cannot borrow FlowToken vault from signer storage")
+        self.paymentVault <- flowTokenVault.withdraw(amount: price)
 
         self.MotoGPCardCollection = signer.borrow<&MotoGPCard.Collection{NonFungibleToken.Receiver}>(from: /storage/motogpCardCollection)
             ?? panic("Cannot borrow NFT collection receiver from account")

@@ -1,6 +1,6 @@
 import FungibleToken from "../../contracts/FungibleToken.cdc"
 import Marketplace from "../../contracts/Marketplace.cdc"
-import FUSD from "../../contracts/FTs/FUSD.cdc"
+import FlowToken from "../../contracts/FTs/FlowToken.cdc"
 import ExampleNFT from "../../contracts/NFTs/ExampleNFT.cdc"
 
 // This transaction creates SaleCutRequirements of Marketplace for NFT & Blocto
@@ -17,16 +17,16 @@ transaction(bloctoRecipient: Address, bloctoRatio: UFix64, nftRecipient: Address
 
         // Blocto SaleCut
         if bloctoRatio > 0.0 {
-            let bloctoFUSDReceiver = getAccount(bloctoRecipient).getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)
-            assert(bloctoFUSDReceiver.borrow() != nil, message: "Missing or mis-typed blocto FUSD receiver")
-            requirements.append(Marketplace.SaleCutRequirement(receiver: bloctoFUSDReceiver, ratio: bloctoRatio))
+            let bloctoFlowTokenReceiver = getAccount(bloctoRecipient).getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)
+            assert(bloctoFlowTokenReceiver.borrow() != nil, message: "Missing or mis-typed blocto FlowToken receiver")
+            requirements.append(Marketplace.SaleCutRequirement(receiver: bloctoFlowTokenReceiver, ratio: bloctoRatio))
         }
 
         // NFT SaleCut
         if nftRatio > 0.0 {
-            let nftFUSDReceiver = getAccount(nftRecipient).getCapability<&FUSD.Vault{FungibleToken.Receiver}>(/public/fusdReceiver)
-            assert(nftFUSDReceiver.borrow() != nil, message: "Missing or mis-typed NFT FUSD receiver")
-            requirements.append(Marketplace.SaleCutRequirement(receiver: nftFUSDReceiver, ratio: nftRatio))
+            let nftFlowTokenReceiver = getAccount(nftRecipient).getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)
+            assert(nftFlowTokenReceiver.borrow() != nil, message: "Missing or mis-typed NFT FlowToken receiver")
+            requirements.append(Marketplace.SaleCutRequirement(receiver: nftFlowTokenReceiver, ratio: nftRatio))
         }
 
         admin.updateSaleCutRequirements(requirements, nftType: Type<@ExampleNFT.NFT>())
