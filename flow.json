@@ -32,7 +32,7 @@
       "source": "./contracts/Marketplace.cdc",
       "aliases": {
         "testnet": "0xe1aa310cfe7750c4",
-        "mainnet": "0xe39483c1fcb6b412"
+        "mainnet": "0xdc5127882cacf8d9"
       }
     },
     "FlowToken": {
@@ -185,6 +185,9 @@
       "chain": "flow-testnet"
     },
     "mainnet-admin": {
+      "fromFile": "./flow.mainnet.json"
+    },
+    "mainnet-admin-new": {
       "fromFile": "./flow.mainnet.json"
     }
   },
