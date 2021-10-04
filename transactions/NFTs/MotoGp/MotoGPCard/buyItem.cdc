@@ -5,7 +5,7 @@ import Marketplace from "../../../../contracts/Marketplace.cdc"
 import FlowToken from "../../../contracts/FTs/FlowToken.cdc"
 import MotoGPCard from "../../../../contracts/NFTs/MotoGP/MotoGPCard.cdc"
 
-transaction(listingResourceID: UInt64, storefrontAddress: Address) {
+transaction(listingResourceID: UInt64, storefrontAddress: Address, buyPrice: UFix64) {
     let paymentVault: @FungibleToken.Vault
     let MotoGPCardCollection: &MotoGPCard.Collection{NonFungibleToken.Receiver}
     let storefront: &NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}
@@ -16,7 +16,7 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
         if signer.borrow<&MotoGPCard.Collection>(from: /storage/motogpCardCollection) == nil {
             signer.save(<- MotoGPCard.createEmptyCollection(), to: /storage/motogpCardCollection)
             signer.link<&MotoGPCard.Collection{MotoGPCard.ICardCollectionPublic, NonFungibleToken.CollectionPublic}>(/public/motogpCardCollection, target: /storage/motogpCardCollection)
-	    }
+        }
 
         self.storefront = getAccount(storefrontAddress)
             .getCapability<&NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}>(NFTStorefront.StorefrontPublicPath)
@@ -26,6 +26,8 @@ transaction(listingResourceID: UInt64, storefrontAddress: Address) {
         self.listing = self.storefront.borrowListing(listingResourceID: listingResourceID)
             ?? panic("No Offer with that ID in Storefront")
         let price = self.listing.getDetails().salePrice
+
+        assert(buyPrice == price, message: "buyPrice is NOT same with salePrice")
 
         let flowTokenVault = signer.borrow<&FlowToken.Vault>(from: /storage/flowTokenVault)
             ?? panic("Cannot borrow FlowToken vault from signer storage")
