@@ -9,7 +9,7 @@ import MotoGPPack from "../../contracts/NFTs/MotoGP/MotoGPPack.cdc"
 transaction {
 
     prepare(signer: AuthAccount) {
-        let bloctoRecipient: Address = 0xf27a6d7cf6eee316
+        let bloctoRecipient: Address = 0x77e38c96fda5c5c5
         let bloctoRatio = 0.025 // 2.5%
         let nftRecipient: Address = 0x1b0d0e046c306e2f
         let nftRatio = 0.075 // 7.5%

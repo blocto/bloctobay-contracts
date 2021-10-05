@@ -8,7 +8,7 @@ import DarkCountry from "../../contracts/NFTs/DarkCountry.cdc"
 transaction {
 
     prepare(signer: AuthAccount) {
-        let bloctoRecipient: Address = 0xf27a6d7cf6eee316
+        let bloctoRecipient: Address = 0x77e38c96fda5c5c5
         let bloctoRatio = 0.025 // 2.5%
         // let nftRecipient: Address = 0x
         let nftRatio = 0.0 // 0%
