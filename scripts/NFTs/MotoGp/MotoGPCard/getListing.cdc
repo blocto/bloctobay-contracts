@@ -1,5 +1,5 @@
-import NFTStorefront from "../../../contracts/NFTStorefront.cdc"
-import Marketplace from "../../../contracts/Marketplace.cdc"
+import NFTStorefront from "../../../../contracts/NFTStorefront.cdc"
+import Marketplace from "../../../../contracts/Marketplace.cdc"
 import MotoGPCard from "../../../../contracts/NFTs/MotoGP/MotoGPCard.cdc"
 
 pub fun main(nftID: UInt64): ListingDisplayItem? {
