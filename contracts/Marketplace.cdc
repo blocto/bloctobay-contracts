@@ -20,6 +20,9 @@ pub contract Marketplace {
             self.listingID = listingID
             let storefrontPublic = storefrontPublicCapability.borrow() ?? panic("Could not borrow public storefront from capability")
             let listingPublic = storefrontPublic.borrowListing(listingResourceID: listingID) ?? panic("no listing id")
+            // check if owner is correct
+            assert(listingPublic.borrowNFT() != nil, message: "could not borrow NFT")
+
             self.listingDetails = listingPublic.getDetails()
             self.timestamp = getCurrentBlock().timestamp
         }
@@ -175,10 +178,18 @@ pub contract Marketplace {
 
         assert(item.listingDetails.purchased == false, message: "the item has been purchased")
 
-        // check duplicate NFT
+        // find previous duplicate NFT
         let nftListingIDs = self.collectionNFTListingIDs[item.listingDetails.nftType.identifier]
+        var previousItem: Item? = nil
         if let nftListingIDs = nftListingIDs {
-            assert(nftListingIDs[item.listingDetails.nftID] == nil, message: "could not add duplicate NFT")
+            if let listingID = nftListingIDs[item.listingDetails.nftID] {
+                previousItem = self.listingIDItems[listingID]!
+
+                // panic only if they're same address
+                if previousItem!.storefrontPublicCapability.address == item.storefrontPublicCapability.address {
+                    panic("could not add duplicate NFT")
+                }
+            }
         }
 
         // check sale cut
@@ -211,6 +222,11 @@ pub contract Marketplace {
             self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] = nftListingIDs
         } else {
             self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] = {item.listingDetails.nftID: item.listingID}
+        }
+
+        // remove previous item
+        if let previousItem = previousItem {
+            self.removeItem(previousItem)
         }
     }
 
