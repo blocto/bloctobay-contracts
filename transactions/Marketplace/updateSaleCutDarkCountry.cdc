@@ -10,8 +10,8 @@ transaction {
     prepare(signer: AuthAccount) {
         let bloctoRecipient: Address = 0x77e38c96fda5c5c5
         let bloctoRatio = 0.025 // 2.5%
-        // let nftRecipient: Address = 0x
-        let nftRatio = 0.0 // 0%
+        let nftRecipient: Address = 0xc8c340cebd11f690
+        let nftRatio = 0.075 // 7.5%
 
         assert(nftRatio + bloctoRatio <= 1.0, message: "total of ratio must be less than or equal to 1.0")
 
@@ -28,11 +28,11 @@ transaction {
         }
 
         // NFT SaleCut
-        // if nftRatio > 0.0 {
-        //     let nftFlowTokenReceiver = getAccount(nftRecipient).getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)
-        //     assert(nftFlowTokenReceiver.borrow() != nil, message: "Missing or mis-typed NFT FlowToken receiver")
-        //     requirements.append(Marketplace.SaleCutRequirement(receiver: nftFlowTokenReceiver, ratio: nftRatio))
-        // }
+        if nftRatio > 0.0 {
+            let nftFlowTokenReceiver = getAccount(nftRecipient).getCapability<&FlowToken.Vault{FungibleToken.Receiver}>(/public/flowTokenReceiver)
+            assert(nftFlowTokenReceiver.borrow() != nil, message: "Missing or mis-typed NFT FlowToken receiver")
+            requirements.append(Marketplace.SaleCutRequirement(receiver: nftFlowTokenReceiver, ratio: nftRatio))
+        }
 
         admin.updateSaleCutRequirements(requirements, nftType: Type<@DarkCountry.NFT>())
     }
