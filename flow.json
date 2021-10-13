@@ -235,7 +235,11 @@
         "Evolution",
         "ExampleNFT",
         "Collectible",
-        "Edition"
+        "Edition",
+        "ChainmonstersRewards",
+        "StarlyCard",
+        "RaceDay_NFT",
+        "TopShot"
       ],
       "emulator-marketplace-admin": [
         "Marketplace"
