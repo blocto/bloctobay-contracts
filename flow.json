@@ -156,6 +156,13 @@
         "testnet": "0x877931736ee77cff"
       }
     },
+    "Vouchers": {
+      "source": "./contracts/NFTs/Jambb/Vouchers.cdc",
+      "aliases": {
+        "mainnet": "0x444f5ea22c6ea12c",
+        "testnet": "0xe94a6e229293f196"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
@@ -239,7 +246,8 @@
         "ChainmonstersRewards",
         "StarlyCard",
         "RaceDay_NFT",
-        "TopShot"
+        "TopShot",
+        "Vouchers"
       ],
       "emulator-marketplace-admin": [
         "Marketplace"
