@@ -10,7 +10,7 @@ transaction {
     prepare(signer: AuthAccount) {
         let bloctoRecipient: Address = 0x77e38c96fda5c5c5
         let bloctoRatio = 0.025 // 2.5%
-        let nftRecipient: Address = 0x55c8be371f74168f
+        let nftRecipient: Address = 0xe2d0069d9353a406
         let nftRatio = 0.05 // 5%
 
         assert(nftRatio + bloctoRatio <= 1.0, message: "total of ratio must be less than or equal to 1.0")
