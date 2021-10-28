@@ -163,6 +163,55 @@
         "testnet": "0xe94a6e229293f196"
       }
     },
+    "Everbloom": {
+      "source": "./contracts/NFTs/Everbloom.cdc",
+      "aliases": {
+        "mainnet": "0xe703f7fee6400754",
+        "testnet": "0xf30d2f642de8c895"
+      }
+    },
+    "Mynft": {
+      "source": "./contracts/NFTs/Mynft.cdc",
+      "aliases": {
+        "mainnet": "0xf6fcbef550d97aa5",
+        "testnet": "0x1eced429f2012ef0"
+      }
+    },
+    "NyatheesOVO": {
+      "source": "./contracts/NFTs/NyatheesOVO.cdc",
+      "aliases": {
+        "mainnet": "0x75e0b6de94eb05d0",
+        "testnet": "0xacf3dfa413e00f9f"
+      }
+    },
+    "MusicBlock": {
+      "source": "./contracts/NFTs/Melos/MusicBlock.cdc",
+      "aliases": {
+        "mainnet": "0x5634aefcb76e7d8c",
+        "testnet": "0xeb3241ad7d7881db"
+      }
+    },
+    "Shard": {
+      "source": "./contracts/NFTs/Eternal/Shard.cdc",
+      "aliases": {
+        "mainnet": "0x82b54037a8f180cf",
+        "testnet": "0x7ff5f9ac593c3ee0"
+      }
+    },
+    "CaaPass": {
+      "source": "./contracts/NFTs/Thing.Fund/CaaPass.cdc",
+      "aliases": {
+        "mainnet": "0x98c9c2e548b84d31",
+        "testnet": "0xa8b1239250f8d342"
+      }
+    },
+    "CaaArts": {
+      "source": "./contracts/NFTs/Thing.Fund/CaaArts.cdc",
+      "aliases": {
+        "mainnet": "0x98c9c2e548b84d31",
+        "testnet": "0xa8b1239250f8d342"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
