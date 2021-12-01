@@ -212,6 +212,30 @@
         "testnet": "0xa8b1239250f8d342"
       }
     },
+    "MugenNFT": {
+      "source": "./contracts/NFTs/MugenArt/MugenNFT.cdc",
+      "aliases": {
+        "mainnet": "0x2cd46d41da4ce262"
+      }
+    },
+    "RaribleNFT": {
+      "source": "./contracts/NFTs/Rarible/RaribleNFT.cdc",
+      "aliases": {
+        "mainnet": "0x01ab36aaf654a13e"
+      }
+    },
+    "MatrixWorldVoucher": {
+      "source": "./contracts/NFTs/MatrixWorld/MatrixWorldVoucher.cdc",
+      "aliases": {
+        "mainnet": "0x0d77ec47bbad8ef6"
+      }
+    },
+    "Moments": {
+      "source": "./contracts/NFTs/Jambb/Moments.cdc",
+      "aliases": {
+        "mainnet": "0xd4ad4740ee426334"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
