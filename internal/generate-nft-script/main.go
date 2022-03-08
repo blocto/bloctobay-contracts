@@ -18,7 +18,6 @@ func LcFirst(str string) string {
 func main() {
 	projectRef := flag.String("project", "", "project name")
 	nftNameRef := flag.String("nftName", "", "NFT name")
-	nftPathRef := flag.String("nftPath", "", "NFT path")
 	nftRecipientRef := flag.String("nftRecipient", "", "NFT sale-cut recipient")
 	nftRatioRef := flag.String("nftRatio", "", "NFT ratio")
 
@@ -26,7 +25,6 @@ func main() {
 
 	project := *projectRef
 	nftName := *nftNameRef
-	nftPath := *nftPathRef
 	nftRecipient := *nftRecipientRef
 	nftRatio := *nftRatioRef
 
@@ -35,9 +33,6 @@ func main() {
 	}
 	if nftName == "" {
 		log.Fatal("nftName is empty")
-	}
-	if nftPath == "" {
-		log.Fatal("nftPath is empty")
 	}
 	if nftRecipient == "" {
 		log.Fatal("nftRecipient is empty")
@@ -48,7 +43,7 @@ func main() {
 
 	// Generate Marketplace updateSaleCut tx
 	updateSaleCutTx := fmt.Sprintf(updateSaleCutTxFormat,
-		nftName, nftPath,
+		nftName, project, nftName,
 		nftRecipient, nftRatio,
 		nftName)
 	var updateSaleCutFileName string
@@ -66,7 +61,7 @@ func main() {
 const updateSaleCutTxFormat = `import FungibleToken from "../../contracts/FungibleToken.cdc"
 import Marketplace from "../../contracts/Marketplace.cdc"
 import FlowToken from "../../contracts/FTs/FlowToken.cdc"
-import %s from "../.%s"
+import %s from "../../contracts/NFTs/%s/%s.cdc"
 
 // This transaction creates SaleCutRequirements of Marketplace for NFT & Blocto
 

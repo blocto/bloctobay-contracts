@@ -236,6 +236,40 @@
         "mainnet": "0xd4ad4740ee426334"
       }
     },
+    "GeniaceNFT": {
+      "source": "./contracts/NFTs/GENIACE/GeniaceNFT.cdc",
+      "aliases": {
+        "mainnet": "0xabda6627c70c7f52",
+        "testnet": "0x99eb28310626e56a"
+      }
+    },
+    "OneFootball": {
+      "source": "./contracts/NFTs/OneFootball/OneFootballCollectible.cdc",
+      "aliases": {
+        "mainnet": "0x6831760534292098",
+        "testnet": "0x01984fb4ca279d9a"
+      }
+    },
+    "ZeedzINO": {
+      "source": "./contracts/NFTs/Zeedz/ZeedzINO.cdc",
+      "aliases": {
+        "mainnet": "0x62b3063fbe672fc8",
+        "testnet": "0x2dda9145001182e0"
+      }
+    },
+    "GooberXContract": {
+      "source": "./contracts/NFTs/ThePartyGooberz/GooberXContract.cdc",
+      "aliases": {
+        "mainnet": "0x34f2bf4a80bb0f69"
+      }
+    },
+    "GogoroCollectible": {
+      "source": "./contracts/NFTs/Gogoro/GogoroCollectible.cdc",
+      "aliases": {
+        "mainnet": "0x8c9bbcdcd7514081",
+        "testnet": "0x5fc35f03a6f33561"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
