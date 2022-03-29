@@ -270,6 +270,34 @@
         "testnet": "0x5fc35f03a6f33561"
       }
     },
+    "YahooCollectible": {
+      "source": "./contracts/NFTs/Yahoo/YahooCollectible.cdc",
+      "aliases": {
+        "mainnet": "0x758252ab932a3416",
+        "testnet": "0x5d50ce3fd080edce"
+      }
+    },
+    "ARTIFACT": {
+      "source": "./contracts/NFTs/SCMP/ARTIFACT.cdc",
+      "aliases": {
+        "mainnet": "0x24de869c5e40b2eb",
+        "testnet": "0xd6b5d6d271a2b544"
+      }
+    },
+    "ARTIFACTPack": {
+      "source": "./contracts/NFTs/SCMP/ARTIFACTPack.cdc",
+      "aliases": {
+        "mainnet": "0x24de869c5e40b2eb",
+        "testnet": "0xd6b5d6d271a2b544"
+      }
+    },
+    "CryptoPiggo": {
+      "source": "./contracts/NFTs/CryptoPiggos/CryptoPiggo.cdc",
+      "aliases": {
+        "mainnet": "0xd3df824bf81910a4",
+        "testnet": "0x57e1b27618c5bb69"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
