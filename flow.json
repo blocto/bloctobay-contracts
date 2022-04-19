@@ -298,6 +298,46 @@
         "testnet": "0x57e1b27618c5bb69"
       }
     },
+    "InceptionAnimals": {
+      "source": "./contracts/NFTs/InceptionAnimals/CryptoZooNFT.cdc",
+      "aliases": {
+        "mainnet": "0x8ea44ab931cac762",
+        "testnet": "0xd60702f03bcafd46"
+      }
+    },
+    "Kicks": {
+      "source": "./contracts/NFTs/NFTLX/Kicks.cdc",
+      "aliases": {
+        "mainnet": "0xf3cc54f4d91c2f6c",
+        "testnet": "0xe861e151d3556d70"
+      }
+    },
+    "KlktnNFT": {
+      "source": "./contracts/NFTs/KLKTN/KlktnNFT.cdc",
+      "aliases": {
+        "mainnet": "0xabd6e80be7e9682c"
+      }
+    },
+    "KlktnNFT2": {
+      "source": "./contracts/NFTs/KLKTN/KlktnNFT2.cdc",
+      "aliases": {
+        "mainnet": "0xabd6e80be7e9682c"
+      }
+    },
+    "RacingTime": {
+      "source": "./contracts/NFTs/RacingTime/RacingTime.cdc",
+      "aliases": {
+        "mainnet": "0x8d4fa88ffa2d9117",
+        "testnet": "0xe0e251b47ff622ba"
+      }
+    },
+    "SomePlaceCollectible": {
+      "source": "./contracts/NFTs/ThePotion/SomePlaceCollectible.cdc",
+      "aliases": {
+        "mainnet": "0x667a16294a089ef8",
+        "testnet": "0x0c153e28da9f988a"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
