@@ -16,6 +16,9 @@ pub contract Marketplace {
         pub let timestamp: UFix64
 
         init(storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>, listingID: UInt64) {
+            // Upgrade contract: check NFTStorefront is the official one.
+            storefrontPublicCapability as! Capability<&NFTStorefront.Storefront{NFTStorefront.StorefrontPublic}>
+
             self.storefrontPublicCapability = storefrontPublicCapability
             self.listingID = listingID
             let storefrontPublic = storefrontPublicCapability.borrow() ?? panic("Could not borrow public storefront from capability")
