@@ -382,8 +382,18 @@
       "chain": "flow-emulator"
     },
     "testnet-marketplace-admin": {
-      "address": "e395c668f56286ba",
-      "keys": "83db9f09d19d066eb9d71b3aa7f79d99dfbd0eb10278dc895c30d19e2fc8ffb5",
+      "address": "0x8bafa9e5a7238251",
+      "keys": [
+        {
+          "type": "hex",
+          "index": 0,
+          "signatureAlgorithm": "ECDSA_secp256k1",
+          "hashAlgorithm": "SHA3_256",
+          "context": {
+              "privateKey": "71240c73920d6edad941be506c7d031fbe61469f96920cd0e1a6e5eb5ea50c94"
+          }
+        }
+      ],
       "chain": "flow-testnet"
     },
     "testnet-marketplace-admin2": {
@@ -395,6 +405,9 @@
       "fromFile": "./flow.mainnet.json"
     },
     "mainnet-admin-new": {
+      "fromFile": "./flow.mainnet.json"
+    },
+    "mainnet-admin-new-2": {
       "fromFile": "./flow.mainnet.json"
     }
   },
