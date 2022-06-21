@@ -67,7 +67,13 @@ pub contract NFTStorefront {
     // ListingCompleted
     // The listing has been resolved. It has either been purchased, or removed and destroyed.
     //
-    pub event ListingCompleted(listingResourceID: UInt64, storefrontResourceID: UInt64, purchased: Bool)
+    pub event ListingCompleted(
+        listingResourceID: UInt64,
+        storefrontResourceID: UInt64,
+        purchased: Bool,
+        nftType: Type,
+        nftID: UInt64
+    )
 
     // StorefrontStoragePath
     // The location in storage that a Storefront resource should be located.
@@ -216,7 +222,7 @@ pub contract NFTStorefront {
             //  result.isInstance(self.getDetails().nftType): "token has wrong type"
             assert(ref.isInstance(self.getDetails().nftType), message: "token has wrong type")
             assert(ref.id == self.getDetails().nftID, message: "token has wrong ID")
-            return ref as &NonFungibleToken.NFT
+            return (ref as &NonFungibleToken.NFT?)!
         }
 
         // getDetails
@@ -280,7 +286,9 @@ pub contract NFTStorefront {
             emit ListingCompleted(
                 listingResourceID: self.uuid,
                 storefrontResourceID: self.details.storefrontID,
-                purchased: self.details.purchased
+                purchased: self.details.purchased,
+                nftType: self.details.nftType,
+                nftID: self.details.nftID
             )
 
             return <-nft
@@ -298,7 +306,9 @@ pub contract NFTStorefront {
                 emit ListingCompleted(
                     listingResourceID: self.uuid,
                     storefrontResourceID: self.details.storefrontID,
-                    purchased: self.details.purchased
+                    purchased: self.details.purchased,
+                    nftType: self.details.nftType,
+                    nftID: self.details.nftID
                 )
             }
         }
@@ -439,7 +449,7 @@ pub contract NFTStorefront {
         //
         pub fun borrowListing(listingResourceID: UInt64): &Listing{ListingPublic}? {
             if self.listings[listingResourceID] != nil {
-                return &self.listings[listingResourceID] as! &Listing{ListingPublic}
+                return (&self.listings[listingResourceID] as &Listing{ListingPublic}?)
             } else {
                 return nil
             }
