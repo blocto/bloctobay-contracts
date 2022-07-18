@@ -338,6 +338,46 @@
         "testnet": "0x0c153e28da9f988a"
       }
     },
+    "DayNFT": {
+      "source": "./contracts/NFTs/DayNFT/DayNFT.cdc",
+      "aliases": {
+        "mainnet": "0x1600b04bf033fb99",
+        "testnet": "0x0b7f00d13cd033bd"
+      }
+    },
+    "YahooPartnersCollectible": {
+      "source": "./contracts/NFTs/Yahoo/YahooPartnersCollectible.cdc",
+      "aliases": {
+        "mainnet": "0x758252ab932a3416",
+        "testnet": "0x5d50ce3fd080edce"
+      }
+    },
+    "Costacos_NFT": {
+      "source": "./contracts/NFTs/Costacos/Costacos_NFT.cdc",
+      "aliases": {
+        "mainnet": "0x329feb3ab062d289"
+      }
+    },
+    "BarterYardPackNFT": {
+      "source": "./contracts/NFTs/BarterYardClub/BarterYardPackNFT.cdc",
+      "aliases": {
+        "mainnet": "0xa95b021cf8a30d80",
+        "testnet": "0x4300fc3a11778a9a"
+      }
+    },
+    "GoatedGoats": {
+      "source": "./contracts/NFTs/GoatedGoats/GoatedGoats.cdc",
+      "aliases": {
+        "mainnet": "0x2068315349bdfce5"
+      }
+    },
+    "MatrixWorldAssetsNFT": {
+      "source": "./contracts/NFTs/MatrixWorld/MatrixWorldAssetsNFT.cdc",
+      "aliases": {
+        "mainnet": "0xf20df769e658c257",
+        "testnet": "0x95702b3642af3d0c"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
