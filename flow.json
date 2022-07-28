@@ -378,6 +378,48 @@
         "testnet": "0x95702b3642af3d0c"
       }
     },
+    "MintStoreItem": {
+      "source": "./contracts/NFTs/MintStore/MintStoreItem.cdc",
+      "aliases": {
+        "mainnet": "0x20187093790b9aef",
+        "testnet": "0x985d410b577fd4a1"
+      }
+    },
+    "BlindBoxRedeemVoucher": {
+      "source": "./contracts/NFTs/FlowBlindBox/BlindBoxRedeemVoucher.cdc",
+      "aliases": {
+        "mainnet": "0x910514afa41bfeac",
+        "testnet": "0xb073f87f88ee7449"
+      }
+    },
+    "BreakingT_NFT": {
+      "source": "./contracts/NFTs/BreakingT/BreakingT_NFT.cdc",
+      "aliases": {
+        "mainnet": "0x329feb3ab062d289",
+        "testnet": "0x04625c28593d9408"
+      }
+    },
+    "MaxarNFT": {
+      "source": "./contracts/NFTs/Maxar/MaxarNFT.cdc",
+      "aliases": {
+        "mainnet": "0xa4e9020ad21eb30b",
+        "testnet": "0x5dfbd0d5aba6acf7"
+      }
+    },
+    "NftReality": {
+      "source": "./contracts/NFTs/Reality/NftReality.cdc",
+      "aliases": {
+        "mainnet": "0x5892036f9111fbb8",
+        "testnet": "0xa3222e7505186595"
+      }
+    },
+    "Momentables": {
+      "source": "./contracts/NFTs/Momentable/Momentables.cdc",
+      "aliases": {
+        "mainnet": "0x9d21537544d9123d",
+        "testnet": "0x9f2eb43b6df02730"
+      }
+    },
     "ExampleNFT": "./contracts/NFTs/ExampleNFT.cdc"
   },
   "networks": {
