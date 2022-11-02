@@ -488,9 +488,6 @@
     },
     "mainnet-admin-new": {
       "fromFile": "./flow.mainnet.json"
-    },
-    "mainnet-admin-new-2": {
-      "fromFile": "./flow.mainnet.json"
     }
   },
   "deployments": {

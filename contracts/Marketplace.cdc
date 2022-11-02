@@ -259,7 +259,7 @@ pub contract Marketplace {
     }
 
     // Run reverse for loop to find out the index to insert
-    access(contract) fun getIndexToAddListingID(item: Item, items: [UInt64]): Int {
+    pub fun getIndexToAddListingID(item: Item, items: [UInt64]): Int {
         var index = items.length - 1
         while index >= 0 {
             let currentListingID = items[index]
@@ -278,7 +278,7 @@ pub contract Marketplace {
     }
 
     // Run binary search to find the listing ID
-    access(contract) fun getIndexToRemoveListingID(item: Item, items: [UInt64]): Int? {
+    pub fun getIndexToRemoveListingID(item: Item, items: [UInt64]): Int? {
         var startIndex = 0
         var endIndex = items.length
 
