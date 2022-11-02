@@ -278,6 +278,16 @@ pub contract Marketplace {
     }
 
     // Run binary search to find the listing ID
+    pub fun getIndexToRemoveListingIDBy(listingID: UInt64): Int? {
+        if let item = self.listingIDItems[listingID] {
+            let items = self.getListingIDs()
+            return self.getIndexToRemoveListingID(item: item, items: items)
+        } else {
+            return nil
+        }
+    }
+
+    // Run binary search to find the listing ID
     pub fun getIndexToRemoveListingID(item: Item, items: [UInt64]): Int? {
         var startIndex = 0
         var endIndex = items.length
