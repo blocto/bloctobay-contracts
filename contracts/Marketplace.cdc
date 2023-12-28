@@ -88,6 +88,11 @@ pub contract Marketplace {
         return nftListingIDs[nftID]
     }
 
+    pub fun getNFTIDListingIDMap(nftType: Type): {UInt64: UInt64} {
+        let nftListingIDs = self.collectionNFTListingIDs[nftType.identifier] ?? {}
+        return nftListingIDs
+    }
+
     pub fun getAllSaleCutRequirements(): {String: [SaleCutRequirement]} {
         return self.saleCutRequirements
     }
