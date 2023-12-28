@@ -79,10 +79,6 @@ pub contract Marketplace {
         }
     }
 
-    pub fun getListingIDs(): [UInt64] {
-        return self.listingIDs
-    }
-
     pub fun getListingIDItem(listingID: UInt64): Item? {
         return self.listingIDItems[listingID]
     }
@@ -103,12 +99,9 @@ pub contract Marketplace {
     pub fun addListing(id: UInt64, storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>) {
         let item = Item(storefrontPublicCapability: storefrontPublicCapability, listingID: id)
 
-        let indexToInsertListingID = self.getIndexToAddListingID(item: item, items: self.listingIDs)
-
         self.addItem(
             item,
-            storefrontPublicCapability: storefrontPublicCapability,
-            indexToInsertListingID: indexToInsertListingID)
+            storefrontPublicCapability: storefrontPublicCapability)
     }
 
     pub fun addListingWithIndex(
@@ -118,17 +111,10 @@ pub contract Marketplace {
     ) {
         let item = Item(storefrontPublicCapability: storefrontPublicCapability, listingID: id)
 
-        self.checkValidIndexToInsert(
-            item: item,
-            index: indexToInsertListingID,
-            items: self.listingIDs)
-
         self.addItem(
             item,
-            storefrontPublicCapability: storefrontPublicCapability,
-            indexToInsertListingID: indexToInsertListingID)
+            storefrontPublicCapability: storefrontPublicCapability)
     }
-
     // Anyone can remove it if the listing item has been removed or purchased.
     pub fun removeListing(id: UInt64) {
         if let item = self.listingIDItems[id] {
@@ -148,10 +134,6 @@ pub contract Marketplace {
 
     // Anyone can remove it if the listing item has been removed or purchased.
     pub fun removeListingWithIndex(id: UInt64, indexToRemoveListingID: Int) {
-        pre {
-            self.listingIDs[indexToRemoveListingID] == id: "invalid indexToRemoveListingID"
-        }
-
         if let item = self.listingIDItems[id] {
             // Skip if the listing item hasn't been purchased
             if let storefrontPublic = item.storefrontPublicCapability.borrow() {
@@ -163,17 +145,14 @@ pub contract Marketplace {
                 }
             }
 
-            self.removeItemWithIndexes(
-                item,
-                indexToRemoveListingID: indexToRemoveListingID)
+            self.removeItemWithIndexes(item)
         }
     }
 
     // Add item and indexes.
     access(contract) fun addItem(
         _ item: Item,
-        storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>,
-        indexToInsertListingID: Int
+        storefrontPublicCapability: Capability<&{NFTStorefront.StorefrontPublic}>
     ) {
         pre {
             self.listingIDItems[item.listingID] == nil: "could not add duplicate listing"
@@ -215,9 +194,6 @@ pub contract Marketplace {
             assert(match == true, message: "saleCut must follow SaleCutRequirements")
         }
 
-        // all by time
-        self.listingIDs.insert(at: indexToInsertListingID, item.listingID)
-
         // update index data
         self.listingIDItems[item.listingID] = item
         if let nftListingIDs = nftListingIDs {
@@ -235,22 +211,11 @@ pub contract Marketplace {
 
     // Remove item and indexes. The indexes will be found automatically.
     access(contract) fun removeItem(_ item: Item) {
-        let indexToRemoveListingID = self.getIndexToRemoveListingID(
-            item: item,
-            items: self.listingIDs)
-
-        self.removeItemWithIndexes(
-            item,
-            indexToRemoveListingID: indexToRemoveListingID)
+        self.removeItemWithIndexes(item)
     }
 
     // Remove item and indexes. The indexes should be checked before calling this func.
-    access(contract) fun removeItemWithIndexes(_ item: Item, indexToRemoveListingID: Int?) {
-        // remove from listingIDs
-        if let indexToRemoveListingID = indexToRemoveListingID {
-            self.listingIDs.remove(at: indexToRemoveListingID)
-        }
-
+    access(contract) fun removeItemWithIndexes(_ item: Item) {
         // update index data
         self.listingIDItems.remove(key: item.listingID)
         let nftListingIDs = self.collectionNFTListingIDs[item.listingDetails.nftType.identifier] ?? {}
@@ -275,64 +240,6 @@ pub contract Marketplace {
             }
         }
         return index + 1
-    }
-
-    // Run binary search to find the listing ID
-    pub fun getIndexToRemoveListingIDBy(listingID: UInt64): Int? {
-        if let item = self.listingIDItems[listingID] {
-            let items = self.getListingIDs()
-            return self.getIndexToRemoveListingID(item: item, items: items)
-        } else {
-            return nil
-        }
-    }
-
-    // Run binary search to find the listing ID
-    pub fun getIndexToRemoveListingID(item: Item, items: [UInt64]): Int? {
-        var startIndex = 0
-        var endIndex = items.length
-
-        while startIndex < endIndex {
-            var midIndex = startIndex + (endIndex - startIndex) / 2
-            var midListingID = items[midIndex]!
-            var midItem = self.listingIDItems[midListingID]!
-
-            if item.timestamp > midItem.timestamp {
-                startIndex = midIndex + 1
-            } else if item.timestamp < midItem.timestamp {
-                endIndex = midIndex
-            } else {
-                if item.listingID > midListingID {
-                    startIndex = midIndex + 1
-                }  else if item.listingID < midListingID {
-                    endIndex = midIndex
-                } else {
-                    return midIndex
-                }
-            }
-        }
-        return nil
-    }
-
-    access(contract) fun checkValidIndexToInsert(item: Item, index: Int, items: [UInt64]) {
-        if index > 0 {
-            let previousListingID = items[index - 1]
-            let previousItem = self.listingIDItems[previousListingID]!
-            if previousItem.timestamp > item.timestamp {
-                panic("invalid index (timestamp)")
-            } else if previousItem.timestamp == item.timestamp && previousItem.listingID >= item.listingID {
-                panic("invalid index (listingID)")
-            }
-        }
-        if index < items.length {
-            let nextListingID = items[index]
-            let nextItem = self.listingIDItems[nextListingID]!
-            if item.timestamp > nextItem.timestamp {
-                panic("invalid index (timestamp)")
-            } else if item.timestamp == nextItem.timestamp && item.listingID >= nextItem.listingID {
-                panic("invalid index (listingID)")
-            }
-        }
     }
 
     init () {
